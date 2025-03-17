@@ -1,0 +1,50 @@
+version: "3"
+
+networks:
+    generic-network1:
+        external: true
+
+services:
+
+    medi_postgres:
+        image: postgres:16
+        container_name: medi_postgres
+        environment:
+            - PGDATA=/var/lib/postgresql/data/pgdata
+        volumes:
+            - ./services/postgresql.conf:/etc/postgresql/postgresql.conf
+            - ./pgdata:/var/lib/postgresql/data
+        env_file:
+            - ./services/.db_parameter
+        networks:
+            - generic-network1
+
+    medi_django:
+        image: medi_django
+        container_name: medi_django
+        build:
+            context: ./django
+        restart: 'always'
+        command: python manage.py runserver 0.0.0.0:8000
+        volumes:
+            - ./django:/application
+        ports:
+            - "8000:8000"
+        depends_on:
+            - medi_postgres
+        stdin_open: true
+        env_file:
+            - ./env/.django_env
+        tty: true
+        networks:
+            - generic-network1
+
+    adminer:
+        container_name: adminer
+        image: adminer:4.7.6-standalone
+        depends_on:
+            - medi_postgres
+        ports:
+            - "8080:8080"
+        networks:
+            - generic-network1

@@ -40,7 +40,7 @@ It includes **user authentication, medicine management, billing, stock tracking,
 ### **🔹 Step 1: Clone the Repository**  
 To get started, clone the project from GitHub:
 ```sh
-git clone https://github.com/your-repo/MediBillz.git
+git clone https://github.com/Rayeesac/MediBillz.git
 cd MediBillz
 ```
 

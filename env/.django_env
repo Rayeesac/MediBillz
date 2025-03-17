@@ -1,0 +1,14 @@
+SITE_HOST=127.0.0.1:8000
+ALLOWED_HOSTS=localhost,127.0.0.1,
+SECRET_KEY=&x6*%$#bv1nor_x55-u9ew!(dl7p+hxl)ze_4mfn71)y
+DEBUG=on
+DATABASE_URL=psql://postgres:postgres@medi_postgres:5432/medibillz
+SITE_NAME=MediBillz
+DEFAULT_FROM_EMAIL=info.rayeesac@gmail.com
+LOW_STOCK_THRESHOLD=10
+
+EMAIL_USE_TLS=True
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=epsriyasac@gmail.com
+EMAIL_HOST_PASSWORD=hfqkpxaslhuecevi

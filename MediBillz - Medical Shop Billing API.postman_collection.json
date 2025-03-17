@@ -1,0 +1,493 @@
+{
+	"info": {
+		"_postman_id": "21e74847-7668-46dc-b758-c35130fc6dba",
+		"name": "MediBillz - Medical Shop Billing API",
+		"description": "## 📌 API Endpoints  \n\n### **1. Authentication APIs**\n| Method | Endpoint | Description |\n|--------|-------------|--------------------|\n| `POST` | `/api/auth/register/` | Register a new user (Admin, Staff, Inventory Manager) |\n| `POST` | `/api/auth/login/` | Get JWT access & refresh tokens |\n| `POST` | `/api/auth/logout/` | Invalidate JWT token |\n\n---\n\n### **2. User Management APIs (Admin Only)**\n| Method | Endpoint | Description |\n|--------|-------------|--------------------|\n| `GET` | `/api/users/` | Get all users |\n| `GET` | `/api/users/{id}/` | Get a specific user |\n| `PUT` | `/api/users/{id}/` | Update user details |\n| `DELETE` | `/api/users/{id}/` | Delete a user |\n\n---\n\n### **3. Medicine Management APIs (Inventory Manager Only)**\n| Method | Endpoint | Description |\n|--------|-------------|--------------------|\n| `POST` | `/api/medicines/` | Add a new medicine |\n| `GET` | `/api/medicines/` | List all medicines |\n| `GET` | `/api/medicines/{id}/` | Get medicine details |\n| `PUT` | `/api/medicines/{id}/` | Update medicine details |\n| `DELETE` | `/api/medicines/{id}/` | Delete a medicine |\n\n---\n\n### **4. Billing APIs (Staff Only)**\n| Method | Endpoint | Description |\n|--------|-------------|--------------------|\n| `POST` | `/api/billing/` | Create a bill (Auto price calculation) |\n\n📌 **Example Request:**\n```json\n{\n    \"items\": [\n        { \"medicine\": 2, \"quantity\": 2, \"packaging_type\": \"box\" },\n        { \"medicine\": 1, \"quantity\": 1, \"packaging_type\": \"pack\" }\n    ]\n}\n```\n\n---\n\n### **5. Dashboard APIs (Admin Only)**\n| Method | Endpoint | Description |\n|--------|-------------|--------------------|\n| `GET` | `/api/dashboard/stock/` | Get available stock |\n| `GET` | `/api/dashboard/reports/?start_date=YYYY-MM-DD&end_date=YYYY-MM-DD` | Get sales reports |",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication APIs",
+			"item": [
+				{
+					"name": "User Registration API",
+					"item": [
+						{
+							"name": "User Registration API",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"manager05\",\n\t\"password\" : \"As@12345\",\n    \"email\": \"manager05@gmail.com\",\n    \"role\": \"Inventory Manager\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/api/auth/register/"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login API",
+					"item": [
+						{
+							"name": "Login API",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "medi-billz-admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "MBiz@Admin2025",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "staff01",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "As@12345",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "username",
+											"value": "manager01",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "As@12345",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": "{{base_url}}/api/auth/login/"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Logout API",
+					"item": [
+						{
+							"name": "Logout API",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "refresh_token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MjIxNjE5OCwiaWF0IjoxNzQyMTI5Nzk4LCJqdGkiOiIxYTVmMDI4MDhjZjc0NzQ4YTgyM2UwNWRmMzBlODFlNiIsInVzZXIiOiJtZWRpLWJpbGx6LWFkbWluIn0.g8s8O2gHeGhxi__NE-yAoSlu4thWT20dSLRD2lfBl7E",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/api/auth/logout/"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User Management APIs",
+					"item": [
+						{
+							"name": "Get all users",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": "{{base_url}}/api/users/"
+							},
+							"response": []
+						},
+						{
+							"name": "Get a specific user",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": "{{base_url}}/api/users/11/"
+							},
+							"response": []
+						},
+						{
+							"name": "Update user details",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "john_karo",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "As@12345",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "Staff",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "johnkaro@gmail.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": "{{base_url}}/api/users/11/"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": "{{base_url}}/api/users/15/"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Medicine Management APIs",
+			"item": [
+				{
+					"name": "Medicine CRUD APIs",
+					"item": [
+						{
+							"name": "Add a new medicine",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"Paracetamol\",\n    \"category\" : \"tablet\",\n    \"single_price\" : 10,\n    \"strip_price\" : 50,\n    \"pack_price\" : 100,\n    \"box_price\" : 500,\n\t\"single_stock\" : 10,\n\t\"strip_stock\" : 20,\n\t\"pack_stock\" : 50,\n\t\"box_stock\"\t: 50,\n    \"expiry_date\" : \"2025-12-31\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/api/medicines/"
+							},
+							"response": []
+						},
+						{
+							"name": "List all medicines",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "{{base_url}}/api/medicines/"
+							},
+							"response": []
+						},
+						{
+							"name": "Get medicine details",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": "{{base_url}}/api/medicines/1/"
+							},
+							"response": []
+						},
+						{
+							"name": "Update medicine details",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Sneezy\",\n\t\"category\": \"box\",\n\t\"single_price\": \"10.00\",\n\t\"strip_price\": \"50.00\",\n\t\"pack_price\": \"100.00\",\n\t\"box_price\": \"500.00\",\n\t\"single_stock\": 10,\n\t\"strip_stock\": 20,\n\t\"pack_stock\": 5,\n\t\"box_stock\": 15,\n\t\"expiry_date\": \"2025-02-14\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/api/medicines/1/"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a medicine",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": "{{base_url}}/api/medicines/1/"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Billing APIs",
+			"item": [
+				{
+					"name": "Create a Bill API",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"items\": [\n        {\n            \"medicine\": 2,\n            \"quantity\": 2,\n            \"packaging_type\": \"box\"\n        },\n\t\t{\n            \"medicine\": 1,\n            \"quantity\": 1,\n            \"packaging_type\": \"pack\"\n        },\n\t\t{\n            \"medicine\": 9,\n            \"quantity\": 12,\n            \"packaging_type\": \"pack\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/billing/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard APIs",
+			"item": [
+				{
+					"name": "Stock Availability API",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/dashboard/stock/"
+					},
+					"response": []
+				},
+				{
+					"name": "Sales Report API",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/reports/?start_date=2025-02-16&end_date=2025-12-31",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"reports",
+								""
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2025-02-16"
+								},
+								{
+									"key": "end_date",
+									"value": "2025-12-31"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "127.0.0.1:8000"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQyMjA3MjIyLCJpYXQiOjE3NDIyMDQ1MjIsImp0aSI6ImJmYzQwMzg2ZjYxNDQ0NzU4MGE3NGRiNDVmNDFhYWRiIiwidXNlciI6Im1lZGktYmlsbHotYWRtaW4ifQ.VbjAjWBhYzUHWOZObGvseSzwYq0B3GgS1TwMejzHYy4"
+		}
+	]
+}
