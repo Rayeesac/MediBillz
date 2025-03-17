@@ -28,14 +28,7 @@ It includes **user authentication, medicine management, billing, stock tracking,
 
 ---
 
-## 🛠️ Installation  
-
-### **🔹 Prerequisites**  
-- Python **3.9+**  
-- PostgreSQL **13+**  
-- Django **3.2+**  
-- Django REST Framework  
-- Docker
+## 🛠️ Get Started to Setup.  
 
 ### **🔹 Step 1: Clone the Repository**  
 To get started, clone the project from GitHub:
