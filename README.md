@@ -71,6 +71,12 @@ docker-compose -f docker-compose.yml down && docker-compose -f docker-compose.ym
 ```
 
 ---
+Admin credentials
+---------
+username : medi-billz-admin
+password : MBMBiz@Admin2025
+
+---
 
 ## 📌 API Endpoints  
 
