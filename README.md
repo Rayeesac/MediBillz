@@ -1,4 +1,4 @@
-# 🏥 MediBillz - Medical Shop Billing API (Django,DRF,PostgreSQL,Docker)
+# 🏥 MediBillz - Medical Shop Billing API (Django,DRF,PostgreSQL)
 
 ## 📌 Overview  
 MediBillz is a **Django REST Framework (DRF) API** for managing a **Medical Shop Billing System**.  
